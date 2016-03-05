@@ -1,8 +1,6 @@
+##Coursera Getting and Cleaning Data assignemnt
 
 ## SET-up the environment.
-##install.packages("downloader")
-
-##install.packages("plyr")
 
 packages <- c("downloader", "plyr")
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
@@ -11,11 +9,8 @@ if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
 library(downloader)
 library(plyr)
 
-
 WORKING.DIR <- 'E://Coursera//Data_Scientist//getting_and_cleaning_data//assignment'
-
 setwd(WORKING.DIR)
-
 
 ## Download and unzip the the raw data set.
 url  <-  'https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip' 
@@ -46,7 +41,7 @@ NEW.TRAIN.SET <- cbind(TRAIN.SUBJ, TRAIN.ACT, TRAIN.SET)
 NEW.TEST.SET <- cbind(TEST.SUBJ, TEST.ACT, TEST.SET)
 
 MERGED.DATA <- rbind(NEW.TRAIN.SET, NEW.TEST.SET)
-colnames(MERGED.DATA) <- c('SUBJECT', 'ACTIVITY', FEATURE.NAMES)
+colnames(MERGED.DATA) <- c('subject', 'activity', FEATURE.NAMES)
 
 ##  STEP 2. Extracts only the measurements on the mean and standard deviation 
 ##         for each measurement.
@@ -58,18 +53,20 @@ MERGED.DATA <- MERGED.DATA[, c(TRUE, TRUE, INTEREST.FEATURE.NAMES)]
 ##         in the data set. 
 ACT.ID<-ACTIVITY.LBLS$V1
 ACT.STR<-sub("_"," ",ACTIVITY.LBLS$V2)
-MERGED.DATA$ACTIVITY <- mapvalues(MERGED.DATA$ACTIVITY,ACT.ID,ACT.STR)
+MERGED.DATA$activity <- mapvalues(MERGED.DATA$activity,ACT.ID,ACT.STR)
 
 ## STEP 4: Appropriately labels the data set with descriptive 
 ##         Variable names.  
 colnames(MERGED.DATA) <- gsub('[()-]', '', colnames(MERGED.DATA))
-colnames(MERGED.DATA) <- sub('mean', 'MEAN', colnames(MERGED.DATA))
-colnames(MERGED.DATA) <- sub('std', 'STD', colnames(MERGED.DATA))
+
 #Looks like there is a bug in the original nameing Body appears twice
 #viz. BodyBody -correcting this below
-colnames(MERGED.DATA) <- sub('BodyBody', 'Body', colnames(MERGED.DATA))
+colnames(MERGED.DATA) <- sub('BodyBody', 'body', colnames(MERGED.DATA))
+
+##All variable names to lower
+colnames(MERGED.DATA)<-tolower(colnames(MERGED.DATA))
 
 ## STEP 5. From the data set in step 4, creates a second, independent tidy data set 
 ##         with the average of each variable for each activity and each subject.
-TIDY.DATA <- ddply(MERGED.DATA, c( 'SUBJECT','ACTIVITY'), numcolwise(mean))
+TIDY.DATA <- ddply(MERGED.DATA, c( 'subject','activity'), numcolwise(mean))
 write.table(TIDY.DATA, file = "tidy_data.txt", quote = FALSE,row.names = FALSE, sep=',')
