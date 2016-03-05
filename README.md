@@ -1,6 +1,6 @@
 Assignement: Getting and Cleaning Data
 
-THe following steps wil lresult in the generation of a CSV file (tidy_data.csv) containig a tidy data sset with the variables and values presented in the code book (CodeBook.md)
+The following steps will result in the generation of a CSV file (tidy_data.txt) containig a tidy data set with the variables and values presented in the code book (CodeBook.md)
 
 
 **Prior to executing the R script.** 
