@@ -4,7 +4,8 @@ THe following steps wil lresult in the generation of a CSV file (tidy_data.csv) 
 
 
 **Prior to executing the R script.** 
-    - create the follwoing directory structure 'E://Coursera//Data_Scientist//getting_and_cleaning_data//assignment' or,  
+
+    - create the follwoing directory structure 'E://Coursera//Data_Scientist//getting_and_cleaning_data//assignment' or,    
     - set the "WORKING.DIR" variable to an empty directory structure that exists.
     
 <br><br>
